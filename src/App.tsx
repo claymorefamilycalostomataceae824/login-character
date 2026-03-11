@@ -7,6 +7,9 @@ function App() {
   const [isFocused, setIsFocused] = useState(false)
   const [isBlinking, setIsBlinking] = useState(false)
   const [lookAwayOffset, setLookAwayOffset] = useState({ x: 0, y: 0, normX: 0 })
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+  const [isShaking, setIsShaking] = useState(false)
   const characterRef = useRef<SVGSVGElement>(null)
 
   useEffect(() => {
@@ -90,7 +93,14 @@ function App() {
   return (
     <div className="flex w-screen h-screen">
       <div className="w-1/2 h-full bg-[#0a0a0a] flex items-center justify-center overflow-hidden">
-        <svg ref={characterRef} width="260" height="460" viewBox="0 0 260 460" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg 
+          ref={characterRef} 
+          width="260" 
+          height="460" 
+          viewBox="0 0 260 460" 
+          fill="none" 
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <motion.path
             d={bodyPath}
             fill="#E8751A"
@@ -100,8 +110,17 @@ function App() {
             transition={{ type: 'spring', stiffness: 180, damping: 18 }}
           />
           <motion.g
-            animate={{ x: eyeShift, y: eyeLift }}
-            transition={{ type: 'spring', stiffness: 180, damping: 18 }}
+            animate={{ 
+              x: eyeShift, 
+              y: eyeLift,
+              rotate: isShaking ? [0, -5, 5, -5, 5, 0] : 0
+            }}
+            transition={{ 
+              x: { type: 'spring', stiffness: 180, damping: 18 },
+              y: { type: 'spring', stiffness: 180, damping: 18 },
+              rotate: { duration: 0.5 }
+            }}
+            style={{ originX: '50%', originY: '50%' }}
           >
             <motion.ellipse 
               cx={leftEyeBase + lookAwayOffset.x * 0.5} 
@@ -182,9 +201,14 @@ function App() {
                 type={showPassword ? 'text' : 'password'}
                 placeholder="Enter your password"
                 autoComplete="off"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value)
+                  setError('')
+                }}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
-                className="w-full appearance-none bg-[#1a1a1a] border border-[#2a2a2a] rounded-full px-5 py-3 pr-12 text-white text-sm font-[inherit] placeholder:text-[#444] outline-none focus:border-[#444] transition-colors"
+                className={`w-full appearance-none bg-[#1a1a1a] border ${error ? 'border-red-500' : 'border-[#2a2a2a]'} rounded-full px-5 py-3 pr-12 text-white text-sm font-[inherit] placeholder:text-[#444] outline-none focus:border-[#444] transition-colors`}
               />
               <button
                 type="button"
@@ -207,9 +231,22 @@ function App() {
                 )}
               </button>
             </div>
+            {error && (
+              <p className="text-red-500 text-xs mt-2 ml-5">{error}</p>
+            )}
           </div>
 
-          <button className="w-full bg-white text-black font-medium text-sm rounded-full py-3 border-none hover:bg-[#e0e0e0] transition-colors cursor-pointer">
+          <button 
+            onClick={(e) => {
+              e.preventDefault()
+              if (password !== 'password') {
+                setError('Incorrect password')
+                setIsShaking(true)
+                setTimeout(() => setIsShaking(false), 500)
+              }
+            }}
+            className="w-full bg-white text-black font-medium text-sm rounded-full py-3 border-none hover:bg-[#e0e0e0] transition-colors cursor-pointer"
+          >
             Sign In
           </button>
 
