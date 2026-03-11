@@ -10,6 +10,7 @@ function App() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [isShaking, setIsShaking] = useState(false)
+  const [isSad, setIsSad] = useState(false)
   const characterRef = useRef<SVGSVGElement>(null)
 
   useEffect(() => {
@@ -156,7 +157,22 @@ function App() {
               animate={{ cx: rightEyeBase + lookAwayOffset.x * 0.5 - 3, cy: 120 + lookAwayOffset.y * 0.5 - 3 }}
               transition={{ type: 'spring', stiffness: 100, damping: 15 }}
             />
-            <path d={`M${93 + mouthShift + (showPassword ? lookAwayOffset.x * 0.5 : 0)} ${175 + (showPassword ? lookAwayOffset.y * 0.5 : 0)} Q${112 + mouthShift + (showPassword ? lookAwayOffset.x * 0.5 : 0)} ${195 + (showPassword ? lookAwayOffset.y * 0.5 : 0)} ${135 + mouthShift + (showPassword ? lookAwayOffset.x * 0.5 : 0)} ${175 + (showPassword ? lookAwayOffset.y * 0.5 : 0)}`} stroke="#1a1a1a" strokeWidth="4" strokeLinecap="round" fill="none" />
+            <motion.path 
+              d={isSad ? 
+                `M${93 + mouthShift + (showPassword ? lookAwayOffset.x * 0.5 : 0)} ${185 + (showPassword ? lookAwayOffset.y * 0.5 : 0)} Q${112 + mouthShift + (showPassword ? lookAwayOffset.x * 0.5 : 0)} ${175 + (showPassword ? lookAwayOffset.y * 0.5 : 0)} ${135 + mouthShift + (showPassword ? lookAwayOffset.x * 0.5 : 0)} ${185 + (showPassword ? lookAwayOffset.y * 0.5 : 0)}` :
+                `M${93 + mouthShift + (showPassword ? lookAwayOffset.x * 0.5 : 0)} ${175 + (showPassword ? lookAwayOffset.y * 0.5 : 0)} Q${112 + mouthShift + (showPassword ? lookAwayOffset.x * 0.5 : 0)} ${195 + (showPassword ? lookAwayOffset.y * 0.5 : 0)} ${135 + mouthShift + (showPassword ? lookAwayOffset.x * 0.5 : 0)} ${175 + (showPassword ? lookAwayOffset.y * 0.5 : 0)}`
+              } 
+              stroke="#1a1a1a" 
+              strokeWidth="4" 
+              strokeLinecap="round" 
+              fill="none"
+              animate={{ 
+                d: isSad ? 
+                  `M${93 + mouthShift + (showPassword ? lookAwayOffset.x * 0.5 : 0)} ${185 + (showPassword ? lookAwayOffset.y * 0.5 : 0)} Q${112 + mouthShift + (showPassword ? lookAwayOffset.x * 0.5 : 0)} ${175 + (showPassword ? lookAwayOffset.y * 0.5 : 0)} ${135 + mouthShift + (showPassword ? lookAwayOffset.x * 0.5 : 0)} ${185 + (showPassword ? lookAwayOffset.y * 0.5 : 0)}` :
+                  `M${93 + mouthShift + (showPassword ? lookAwayOffset.x * 0.5 : 0)} ${175 + (showPassword ? lookAwayOffset.y * 0.5 : 0)} Q${112 + mouthShift + (showPassword ? lookAwayOffset.x * 0.5 : 0)} ${195 + (showPassword ? lookAwayOffset.y * 0.5 : 0)} ${135 + mouthShift + (showPassword ? lookAwayOffset.x * 0.5 : 0)} ${175 + (showPassword ? lookAwayOffset.y * 0.5 : 0)}`
+              }}
+              transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+            />
           </motion.g>
         </svg>
       </div>
@@ -242,7 +258,11 @@ function App() {
               if (password !== 'password') {
                 setError('Incorrect password')
                 setIsShaking(true)
-                setTimeout(() => setIsShaking(false), 500)
+                setIsSad(true)
+                setTimeout(() => {
+                  setIsShaking(false)
+                  setIsSad(false)
+                }, 1500)
               }
             }}
             className="w-full bg-white text-black font-medium text-sm rounded-full py-3 border-none hover:bg-[#e0e0e0] transition-colors cursor-pointer"
